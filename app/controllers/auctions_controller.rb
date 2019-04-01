@@ -11,6 +11,8 @@ class AuctionsController < ApplicationController
   # GET /auctions/1
   # GET /auctions/1.json
   def show
+    @auction = Auction.find(params[:id])
+    @bids = @auction.bids.order(amount: :desc)
   end
 
   # GET /auctions/new

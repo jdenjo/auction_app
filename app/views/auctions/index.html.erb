@@ -7,7 +7,9 @@
       <th>End</th>
       <th>Reserve</th>
       <th>User</th>
+
       <th colspan="3"></th>
+            <th>Current Price</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +25,11 @@
           <td><%= link_to 'Edit', edit_auction_path(auction) %></td>
           <td><%= link_to 'Destroy', auction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
+        <% if auction.bids[0] != nil%>
+        <td>$<%= auction.bids.order(amount: :desc).first.amount %></td>
+        <% else %>
+        <td>$0</td>
+        <% end%>
       </tr>
     <% end %>
   </tbody>

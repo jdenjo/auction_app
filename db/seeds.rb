@@ -8,6 +8,7 @@
 
 PASSWORD = "supersecret"
 
+Bid.destroy_all
 Auction.destroy_all
 User.destroy_all
 
@@ -32,7 +33,7 @@ end
 
 users = User.all
 
-50.times do
+10.times do
   created_at = Faker::Date.backward(365 * 5)
 
   p = Auction.create(
@@ -44,4 +45,10 @@ users = User.all
     reserve: rand(1..1000),
     end: Faker::Date.forward(5),
   )
+
+  if p.valid?
+    p.bids = rand(0..15).times.map do
+      Bid.new(amount: rand(0..1000), user: users.sample)
+    end
+  end
 end

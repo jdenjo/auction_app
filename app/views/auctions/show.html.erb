@@ -1,29 +1,46 @@
 <p id="notice"><%= notice %></p>
-
 <p>
   <strong>Title:</strong>
   <%= @auction.title %>
 </p>
-
 <p>
   <strong>Description:</strong>
   <%= @auction.description %>
 </p>
-
 <p>
   <strong>End:</strong>
   <%= @auction.end %>
 </p>
-
 <p>
   <strong>Reserve:</strong>
   <%= @auction.reserve %>
 </p>
-
 <p>
   <strong>User:</strong>
   <%= @auction.user.email %>
 </p>
 
+<% if @bids[0] != nil%>
+<h1> Current highest bid is $<%= @bids.first.amount %> </h1>
+<% end %>
+<br/>
+
+
+<h1>Bid History</h1>
+<ul>
+  <% @bids.each do |bid| %>
+    <li>
+      Bid: <%= bid.amount %> <br />
+      User: <%= bid.user.email %> <br />
+      Date: <%= bid.created_at %> <br />
+    </li>
+    <br />
+  <% end %>
+</ul>
+
+
+<h1>New Bid</h1>
+<%= render 'bidform', bid: @bid %>
 <%= link_to 'Edit', edit_auction_path(@auction) %> |
 <%= link_to 'Back', auctions_path %>
+<br >
