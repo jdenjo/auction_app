@@ -6,10 +6,10 @@
       <th>Description</th>
       <th>End</th>
       <th>Reserve</th>
+      <th>Spot</th>
       <th>User</th>
-
       <th colspan="3"></th>
-            <th>Current Price</th>
+
     </tr>
   </thead>
   <tbody>
@@ -18,18 +18,19 @@
         <td><%= auction.title %></td>
         <td><%= auction.description %></td>
         <td><%= auction.end %></td>
-        <td><%= auction.reserve %></td>
+        <td><%= number_to_currency(auction.reserve) %></td>
+                <% if auction.bids[0] != nil%>
+          <td>$<%= number_to_currency(auction.bids.order(amount: :desc).first.amount) %></td>
+        <% else %>
+          <td>$0</td>
+        <% end%>
         <td><%= auction.user.email %></td>
         <td><%= link_to 'Show', auction %></td>
         <% if current_user && current_user.admin %>
           <td><%= link_to 'Edit', edit_auction_path(auction) %></td>
           <td><%= link_to 'Destroy', auction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
-        <% if auction.bids[0] != nil%>
-        <td>$<%= auction.bids.order(amount: :desc).first.amount %></td>
-        <% else %>
-        <td>$0</td>
-        <% end%>
+
       </tr>
     <% end %>
   </tbody>
