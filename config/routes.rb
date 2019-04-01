@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :auctions
   root to: "pages#home"
   resources :users, only: [:new, :create, :update, :edit]
 

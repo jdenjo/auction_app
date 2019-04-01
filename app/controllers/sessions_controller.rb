@@ -3,20 +3,23 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:email])
+    user = User.find_by_email(params[:email])
     if user&.authenticate(params[:password])
+      # The session is an object useable in controllers
+      # that uses cookies to store encrypted data. To
+      # sign a user in, we store their user_id in the
+      # session for later retrieval.
       session[:user_id] = user.id
-      render json: { id: user.id }
+      flash[:notice] = "Logged In"
+      redirect_to root_path
     else
-      render(
-        json: { status: 404 },
-        status: 404, # Not found
-      )
+      flash[:alert] = "Wrong email or password"
+      render :new
     end
   end
 
   def destroy
     session[:user_id] = nil
-    render(json: { status: 200 }, status: 200)
+    redirect_to root_path, notice: "Logged out"
   end
 end
