@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   resources :bids
   resources :auctions
   root to: "pages#home"
-  resources :users, only: [:new, :create, :update, :edit]
 
+  resources :users, only: [:new, :create, :update, :edit, :show] do
+    get :current, on: :collection
+  end
   resource :sessions, only: [:new, :create] do
     delete :destroy, on: :collection
   end

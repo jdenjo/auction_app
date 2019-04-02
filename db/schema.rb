@@ -15,17 +15,6 @@ ActiveRecord::Schema.define(version: 2019_04_01_181208) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "auction_items", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.datetime "end"
-    t.float "reserve"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_auction_items_on_user_id"
-  end
-
   create_table "auctions", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -38,7 +27,7 @@ ActiveRecord::Schema.define(version: 2019_04_01_181208) do
   end
 
   create_table "bids", force: :cascade do |t|
-    t.float "amount"
+    t.float "amount", default: 0.0
     t.bigint "auction_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
@@ -52,12 +41,12 @@ ActiveRecord::Schema.define(version: 2019_04_01_181208) do
     t.string "last_name"
     t.string "email"
     t.string "password_digest"
-    t.boolean "admin"
+    t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "auction_items", "users"
   add_foreign_key "auctions", "users"
   add_foreign_key "bids", "auctions"
   add_foreign_key "bids", "users"

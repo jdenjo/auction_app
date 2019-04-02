@@ -30,15 +30,9 @@ class AuctionsController < ApplicationController
     @auction = Auction.new(auction_params)
     @auction.user = current_user
 
-    respond_to do |format|
-      if @auction.save
-        format.html { redirect_to @auction, notice: "Auction was successfully created." }
-        format.json { render :show, status: :created, location: @auction }
-      else
-        format.html { render :new }
-        format.json { render json: @auction.errors, status: :unprocessable_entity }
-      end
-    end
+    @auction.save
+
+    render(json: @auction)
   end
 
   # PATCH/PUT /auctions/1

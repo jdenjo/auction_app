@@ -25,6 +25,8 @@ gem "bcrypt", "~> 3.1.7"
 gem "faker"
 gem "awesome_print"
 gem "active_model_serializers"
+gem "rack-cors"
+gem "responders"
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
