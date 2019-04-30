@@ -1,0 +1,39 @@
+<h1>Auctions</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>End</th>
+      <th>Reserve</th>
+      <th>Spot</th>
+      <th>User</th>
+      <th colspan="3"></th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% @auctions.each do |auction| %>
+      <tr>
+        <td><%= auction.title %></td>
+        <td><%= auction.description %></td>
+        <td><%= auction.end %></td>
+        <td><%= number_to_currency(auction.reserve) %></td>
+                <% if auction.bids[0] != nil%>
+          <td>$<%= number_to_currency(auction.bids.order(amount: :desc).first.amount) %></td>
+        <% else %>
+          <td>$0</td>
+        <% end%>
+        <td><%= auction.user.email %></td>
+        <td><%= link_to 'Show', auction %></td>
+        <% if current_user && current_user.admin %>
+          <td><%= link_to 'Edit', edit_auction_path(auction) %></td>
+          <td><%= link_to 'Destroy', auction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to 'New Auction', new_auction_path %>
