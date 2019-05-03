@@ -35,11 +35,11 @@ module AuctionAppRails
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins "*"
+        origins "https://jdenjo-rails-auction-api.herokuapp.com/"
         resource(
           "*",
           headers: :any,
-          credentials: false,
+          credentials: true,
           methods: [:get, :post, :delete, :patch, :put, :options],
         )
       end
