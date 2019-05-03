@@ -39,7 +39,7 @@ module AuctionAppRails
         resource(
           "*",
           headers: :any,
-          credentials: true,
+          # credentials: true, 
           methods: [:get, :post, :delete, :patch, :put, :options],
         )
       end
