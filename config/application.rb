@@ -35,7 +35,7 @@ module AuctionAppRails
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins "https://jdenjo-rails-auction-api.herokuapp.com/"
+        origins "localhost:9999"
         resource(
           "*",
           headers: :any,
